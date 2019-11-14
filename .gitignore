@@ -3,3 +3,5 @@ node_modules/
 !/puppeteerScripts/demo.js
 /result.xlsx
 test/result.xlsx
+logs/logs/
+test/logs/

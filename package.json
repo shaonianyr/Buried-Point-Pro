@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "fs": "^0.0.1-security",
+    "log4js": "^6.0.0",
     "node-xlsx": "^0.15.0",
     "puppeteer": "^2.0.0",
     "string-random": "^0.1.3"
