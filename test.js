@@ -102,9 +102,11 @@ const resultPath = './result.xlsx';
             await customPathFunction(page);
         }
 
-        // 实际业务代码，运行脚本目录下所有录制的脚本
-        // var customPathFunction = require(filesList[i]);
-        // await customPathFunction(page);
+        // 实际业务代码
+        // if (filesList[i] !== '/home/shaonian/maidian/puppeteerScripts/demo.js') {
+        //     var customPathFunction = require(filesList[i]);
+        //     await customPathFunction(page);
+        // }
     }
 
     resultExcels.exportResult(arr);
