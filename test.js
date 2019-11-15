@@ -99,13 +99,13 @@ const resultPath = './result.xlsx';
         });
 
         // demo 演示代码，指定运行脚本目录下的 demo.js 脚本
-        if (filesList[i] === '/home/shaonian/maidian/puppeteerScripts/demo.js') {
+        if (filesList[i].indexOf('demo.js') != -1) {
             var customPathFunction = require(filesList[i]);
             await customPathFunction(page);
         }
 
         // 实际业务代码
-        // if (filesList[i] !== '/home/shaonian/maidian/puppeteerScripts/demo.js') {
+        // if (filesList[i].indexOf('demo.js') === -1) {
         //     var customPathFunction = require(filesList[i]);
         //     await customPathFunction(page);
         // }

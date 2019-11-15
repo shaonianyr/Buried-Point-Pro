@@ -6,7 +6,7 @@ module.exports = async (page) => {
     // ..
 
     // 此次没有复制实际业务作 demo，用 puppeteer 伪装一个事件的上报 
-    await page.evaluate(() => console.log('{"properties": { "$url": "www.example.com", "$element_name": "name1", "$element_selector": "#__layout > div", "$title": "page1" }, "event": "$webclick"}'));
+    await page.evaluate(() => console.log('{"properties": { "$url": "www.example.com", "$element_name": "name1", "$element_selector": "#__layout > div", "$title": "page1" }, "event": "$Webclick"}'));
 
     await time.sleep(1000)
     await page.close()
