@@ -5,8 +5,10 @@ const readFileList = require('./getDir/getDir.js');
 const log4js = require('./logs/logUtils.js'); 
 const loggerSuc = log4js.getLogger('datelogSuc'); 
 const loggerFail = log4js.getLogger('datelogFail'); 
-const scriptPath = './puppeteerScripts';
+const countClick = require('./countClick/countClick.js');
+const scriptPath = './puppeteerScripts/';
 const resultPath = './result.xlsx';
+
 
 (async () => {
     // debug 使用
@@ -15,32 +17,19 @@ const resultPath = './result.xlsx';
     // 实际业务使用
     const browser = await puppeteer.launch();
 
-    var arr = [{  name: 'sheet1', 
-                  data: [
-                            [
-                                'key',
-                                'url',
-                                'event',
-                                'expectName',
-                                'actualName',
-                                'loginPosition',
-                                'report'
-                            ],
-                        ]
-            }];
+    var arr = [];
 
-    var key = 1;
+    var key;
+    var sheetName;
+    var sheetNum = 0;
     var filesList = [];
-    readFileList.getDir(scriptPath,filesList);
+    readFileList.getDir(scriptPath, filesList);
 
     for (var i = 0; i < filesList.length; i++) {
 
         // 开启移动端模拟
         const page = await browser.newPage();
         await page.emulate(devices['iPhone X']);
-
-        // var hadSent = 0;
-        // var perElementName = '';
 
         page.on('console', msg => {
             if (typeof msg === 'object') {
@@ -51,26 +40,9 @@ const resultPath = './result.xlsx';
                 try {
                     var obj = JSON.parse(msg._text);
 
-                    // debug 使用
-                    loggerSuc.info('\n上报事件：\n', obj);
-
                     if (obj.properties.$element_name !== undefined) {
-                        // 日志记录逻辑 待做
-                        // hadSent = 1;
-                        // if (sheet[i][j].element_name === obj.properties.$element_name) {
-                        //     if (perElementName === '') {
-                        //         perElementName = obj.properties.$element_name;
-                        //         elementPage = obj.properties.$title;
-                        //     } else {
-                        //         nonRepeatReport = 0;
-                        //     }
-                        // } else {
-                        //     if (!hadNameTrue) {
-                        //         nonRepeatReport = 0;
-                        //     }
-                        //     hadNameTrue = 0;
-                        //     wrongElementName = obj.properties.$element_name;
-                        // }
+                        // debug 使用
+                        loggerSuc.info('\n上报事件：\n', obj);
 
                         // Excel记录逻辑
                         (async () => {
@@ -83,7 +55,7 @@ const resultPath = './result.xlsx';
                             loggerSuc.info('\n埋点事件信息记录：\n', obj.event, obj.properties.$url, '\n预期上报名字：', name, '\n实际上报名字：', obj.properties.$element_name);
                             var list = [];
                             list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '/', '1');
-                            arr[0].data.push(list);
+                            arr[sheetNum].data.push(list);
                             key++;
                         })();
                     }
@@ -99,15 +71,31 @@ const resultPath = './result.xlsx';
         });
 
         // demo 演示代码，指定运行脚本目录下的 demo.js 脚本
-        if (filesList[i].indexOf('demo.js') != -1) {
-            var customPathFunction = require(filesList[i]);
+        if (filesList[i].base === 'demo.js') {
+            var customPathFunction = require(scriptPath + filesList[i].base);
+            sheetName = filesList[i].name;
+            key = 1;
+            var keyName = {
+                name: sheetName,
+                data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
+            }
+            arr.push(keyName);
             await customPathFunction(page);
+            sheetNum++;
         }
 
         // 实际业务代码
-        // if (filesList[i].indexOf('demo.js') === -1) {
-        //     var customPathFunction = require(filesList[i]);
+        // if (filesList[i].base != 'demo.js') {
+        //     var customPathFunction = require(scriptPath + filesList[i].base);
+        //     sheetName = filesList[i].name;
+        //     key = 1;
+        //     var keyName = {
+        //         name: sheetName,
+        //         data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
+        //     }
+        //     arr.push(keyName);
         //     await customPathFunction(page);
+        //     sheetNum++;
         // }
     }
 
@@ -124,6 +112,5 @@ const resultPath = './result.xlsx';
         loggerSuc.info('\nexcel 表中记录的埋点数据:\n', value);
     });
 
-    await browser.close()
-
+    await browser.close();
 })()

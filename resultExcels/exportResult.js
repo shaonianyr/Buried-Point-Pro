@@ -26,6 +26,7 @@ function getExcel(path)
             var row = sheet['data'][i];
             if(row && row.length > 0){
                 arr.push({
+                    script: sheet['name'],
                     key: row[0],
                     url: row[1],
                     event: row[2],
