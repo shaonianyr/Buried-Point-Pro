@@ -1,15 +1,18 @@
 const xlsx = require('node-xlsx');
 const fs = require('fs');
+const log4js = require('../logs/logUtils.js'); 
+const loggerSuc = log4js.getLogger('datelogSuc'); 
+const loggerFail = log4js.getLogger('datelogFail'); 
 
 function exportResult(data)
 {
     var buffer = xlsx.build(data);
     fs.writeFile('./result.xlsx', buffer, function(err) {
         if (err) {
-            console.log("写入 excel 错误: " + err);
+            loggerFail.error("\n写入 excel 错误: " + err);
             return;
         }
-        console.log("\n数据已写入 excel 表.");
+        loggerSuc.info("\n数据已写入 excel 表.");
     })
 }
 

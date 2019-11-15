@@ -2,6 +2,9 @@ const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 const resultExcels = require('./resultExcels/exportResult.js');
 const readFileList = require('./getDir/getDir.js');
+const log4js = require('./logs/logUtils.js'); 
+const loggerSuc = log4js.getLogger('datelogSuc'); 
+const loggerFail = log4js.getLogger('datelogFail'); 
 const scriptPath = './puppeteerScripts';
 const resultPath = './result.xlsx';
 
@@ -49,7 +52,7 @@ const resultPath = './result.xlsx';
                     var obj = JSON.parse(msg._text);
 
                     // debug 使用
-                    console.log('上报事件：\n', obj);
+                    loggerSuc.info('\n上报事件：\n', obj);
 
                     if (obj.properties.$element_name !== undefined) {
                         // 日志记录逻辑 待做
@@ -76,9 +79,8 @@ const resultPath = './result.xlsx';
                             
                             // demo 演示代码直接自定义 name 属性
                             const name = 'name1';
-                            console.log('\n埋点事件信息记录：');
-
-                            console.log(obj.event, obj.properties.$url, '\n预期上报名字：', name, '\n实际上报名字：', obj.properties.$element_name);
+                            
+                            loggerSuc.info('\n埋点事件信息记录：\n', obj.event, obj.properties.$url, '\n预期上报名字：', name, '\n实际上报名字：', obj.properties.$element_name);
                             var list = [];
                             list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '/', '1');
                             arr[0].data.push(list);
@@ -119,8 +121,7 @@ const resultPath = './result.xlsx';
 
     promise.then(function(value) {
         // 打印写好的 excel 表的内容
-        console.log('excel 表中记录的埋点数据:');
-        console.log(value);
+        loggerSuc.info('\nexcel 表中记录的埋点数据:\n', value);
     });
 
     await browser.close()
