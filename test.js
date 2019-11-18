@@ -60,10 +60,20 @@ const resultPath = './result.xlsx';
                         })();
                     }
 
-                    // 自定义事件，待做
-                    // if (obj.properties.login_position !== undefined) {
-                    //     console.log('$loginPositon', obj.properties.login_position);
-                    // }
+                    // 自定义事件
+                    if (obj.properties.login_position !== undefined) {
+                        // debug 使用
+                        loggerSuc.info('\n上报事件：\n', obj);
+
+                        // Excel记录逻辑
+                        (async () => {
+                            loggerSuc.info('\n埋点登陆位置记录：\n', '上报登陆位置：', obj.properties.login_position);
+                            var list = [];
+                            list.push(key.toString(), '/', '/', '/', '/', obj.properties.login_position, '1');
+                            arr[sheetNum].data.push(list);
+                            key++;
+                        })();
+                    }
                   } catch (error) {
                     var obj = {};
                   }
@@ -110,6 +120,23 @@ const resultPath = './result.xlsx';
     promise.then(function(value) {
         // 打印写好的 excel 表的内容
         loggerSuc.info('\nexcel 表中记录的埋点数据:\n', value);
+        // var excel = value;
+
+        // const fileContentList = readFileList.getDirContent(scriptPath);
+        // const countClickList = countClick.countClick(fileContentList);
+
+        // for (var i = 0; i < excel.length; i++) {
+        //     for (var j = 0; j < countClickList.length; j++) {
+        //         if (excel[i][0].script === countClickList[j].script) {
+        //             if (excel[i].length === countClickList[j].count) {
+        //                 loggerSuc.info(countClickList[j].script, "埋点上报数目符合");
+        //             } else {
+        //                 loggerFail.error(countClickList[j].script, "埋点上报数目不符合");
+        //                 loggerFail.error(excel[i].length, "!=", countClickList[j].count);
+        //             }
+        //         }
+        //     }
+        // }
     });
 
     await browser.close();
