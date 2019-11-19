@@ -2,6 +2,12 @@
 
 Buried-Point-Pro 项目的前身：[maidianDemoTest](https://github.com/ShaoNianyr/maidianDemoTest)
 
+Buried-Point-Pro，基于 nodejs 和 puppeteer 开发的埋点自动化测试框架，对外暴露 puppeteerScripts 的脚本文件夹，可以放置所有写好或录制好的 puppeteer 的业务流程脚本，并自动遍历执行所有脚本，监听并记录所有脚本流程的埋点信息。
+
+框架仅输出每个流程的所有埋点信息的 excel 表，每个脚本分不同的 sheet 记录，以及根据点击元素的 name 属性和该元素上报的事件名字进行对比校验。对埋点的校验方式支持二次扩展开发。
+
+更多详情见下方项目原理图。
+
 ## 为什么要做埋点 Pro
 
 maidianDemoTest 在投入使用的过程中发现，只能对静态页面的埋点进行检测，动态页面需要根据业务逻辑手动去写代码并提 excel 来设计，非常的麻烦，尤其是当业务流程很复杂又很多的时候，一样显得非常麻烦。在这样的一种前提下，重写了整个项目，由此而来的就是 maidianPro. 
