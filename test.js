@@ -85,24 +85,7 @@ const resultPath = './result.xlsx';
         });
 
         // demo 演示代码，指定运行脚本目录下的 demo.js 脚本
-        // if (filesList[i].base === 'demo.js') {
-        //     var customPathFunction = require(scriptPath + filesList[i].base);
-        //     sheetName = filesList[i].name;
-        //     key = 1;
-        //     var keyName = {
-        //         name: sheetName,
-        //         data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
-        //     }
-        //     arr.push(keyName);
-        //     await customPathFunction(page);
-        //     sheetNum++;
-        //     await browser.close();
-        // } else {
-        //     await browser.close();
-        // }
-
-        // 实际业务代码
-        if (filesList[i].base != 'demo.js') {
+        if (filesList[i].base === 'demo.js') {
             var customPathFunction = require(scriptPath + filesList[i].base);
             sheetName = filesList[i].name;
             key = 1;
@@ -117,6 +100,23 @@ const resultPath = './result.xlsx';
         } else {
             await browser.close();
         }
+
+        // 实际业务代码
+        // if (filesList[i].base != 'demo.js') {
+        //     var customPathFunction = require(scriptPath + filesList[i].base);
+        //     sheetName = filesList[i].name;
+        //     key = 1;
+        //     var keyName = {
+        //         name: sheetName,
+        //         data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
+        //     }
+        //     arr.push(keyName);
+        //     await customPathFunction(page);
+        //     sheetNum++;
+        //     await browser.close();
+        // } else {
+        //     await browser.close();
+        // }
     }
 
     resultExcels.exportResult(arr);
