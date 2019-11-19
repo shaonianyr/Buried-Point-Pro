@@ -11,14 +11,7 @@ const resultPath = './result.xlsx';
 
 
 (async () => {
-    // debug 使用
-    // const browser = await puppeteer.launch({ headless: false});
-
-    // 实际业务使用
-    const browser = await puppeteer.launch();
-
     var arr = [];
-
     var key;
     var sheetName;
     var sheetNum = 0;
@@ -27,8 +20,15 @@ const resultPath = './result.xlsx';
 
     for (var i = 0; i < filesList.length; i++) {
 
-        // 开启移动端模拟
+        // debug 使用
+        const browser = await puppeteer.launch({ headless: false});
+
+        // 实际业务使用
+        // const browser = await puppeteer.launch();
+
         const page = await browser.newPage();
+
+        // 开启移动端模拟
         await page.emulate(devices['iPhone X']);
 
         page.on('console', msg => {
@@ -54,7 +54,7 @@ const resultPath = './result.xlsx';
                             
                             loggerSuc.info('\n埋点事件信息记录：\n', obj.event, obj.properties.$url, '\n预期上报名字：', name, '\n实际上报名字：', obj.properties.$element_name);
                             var list = [];
-                            list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '/', '1');
+                            list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '-', '1');
                             arr[sheetNum].data.push(list);
                             key++;
                         })();
@@ -69,7 +69,7 @@ const resultPath = './result.xlsx';
                         (async () => {
                             loggerSuc.info('\n埋点登陆位置记录：\n', '上报登陆位置：', obj.properties.login_position);
                             var list = [];
-                            list.push(key.toString(), '/', '/', '/', '/', obj.properties.login_position, '1');
+                            list.push(key.toString(), '-', '-', '-', '-', obj.properties.login_position, '1');
                             arr[sheetNum].data.push(list);
                             key++;
                         })();
@@ -81,21 +81,7 @@ const resultPath = './result.xlsx';
         });
 
         // demo 演示代码，指定运行脚本目录下的 demo.js 脚本
-        if (filesList[i].base === 'demo.js') {
-            var customPathFunction = require(scriptPath + filesList[i].base);
-            sheetName = filesList[i].name;
-            key = 1;
-            var keyName = {
-                name: sheetName,
-                data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
-            }
-            arr.push(keyName);
-            await customPathFunction(page);
-            sheetNum++;
-        }
-
-        // 实际业务代码
-        // if (filesList[i].base != 'demo.js') {
+        // if (filesList[i].base === 'demo.js') {
         //     var customPathFunction = require(scriptPath + filesList[i].base);
         //     sheetName = filesList[i].name;
         //     key = 1;
@@ -106,7 +92,27 @@ const resultPath = './result.xlsx';
         //     arr.push(keyName);
         //     await customPathFunction(page);
         //     sheetNum++;
+        //     await browser.close();
+        // } else {
+        //     await browser.close();
         // }
+
+        // 实际业务代码
+        if (filesList[i].base != 'demo.js') {
+            var customPathFunction = require(scriptPath + filesList[i].base);
+            sheetName = filesList[i].name;
+            key = 1;
+            var keyName = {
+                name: sheetName,
+                data: [['key', 'url', 'event', 'expectName', 'actualName', 'loginPosition', 'report'],]
+            }
+            arr.push(keyName);
+            await customPathFunction(page);
+            sheetNum++;
+            await browser.close();
+        } else {
+            await browser.close();
+        }
     }
 
     resultExcels.exportResult(arr);
@@ -138,6 +144,4 @@ const resultPath = './result.xlsx';
         //     }
         // }
     });
-
-    await browser.close();
 })()

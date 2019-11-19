@@ -9,5 +9,4 @@ module.exports = async (page) => {
     await page.evaluate(() => console.log('{"properties": { "$url": "www.example.com", "$element_name": "name1", "$element_selector": "#__layout > div", "$title": "page1" }, "event": "$Webclick"}'));
 
     await time.sleep(1000)
-    await page.close()
 };

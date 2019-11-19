@@ -5,11 +5,3 @@ node_modules/
 test/result.xlsx
 logs/logs/
 test/logs/
-puppeteer-recorder/node_modules/
-puppeteer-recorder/.DS_Store
-puppeteer-recorder/.idea
-puppeteer-recorder/build
-puppeteer-recorder/dist
-puppeteer-recorder/dist-zip
-puppeteer-recorder/*.pem
-puppeteer-recorder/*.crx
