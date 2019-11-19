@@ -16,6 +16,8 @@ Buried-Point-Pro 换了另外一种方式来执行埋点的脚本，可以通过
 
 ## 项目原理（我觉得还是看图吧！）
 
+[项目原理图高清链接](https://www.processon.com/view/link/5dd38659e4b01da3459348c7)
+
 <img src="https://github.com/ShaoNianyr/Buried-Point-Pro/blob/master/picture/BuriedPointPro.png">
 
 
