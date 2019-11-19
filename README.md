@@ -8,12 +8,6 @@ Buried-Point-Pro，基于 nodejs 和 puppeteer 开发的埋点自动化测试框
 
 更多详情见下方项目原理图。
 
-## 为什么要做埋点 Pro
-
-maidianDemoTest 在投入使用的过程中发现，只能对静态页面的埋点进行检测，动态页面需要根据业务逻辑手动去写代码并提 excel 来设计，非常的麻烦，尤其是当业务流程很复杂又很多的时候，一样显得非常麻烦。在这样的一种前提下，重写了整个项目，由此而来的就是 Buried-Point-Pro. 
-
-Buried-Point-Pro 换了另外一种方式来执行埋点的脚本，可以通过第三方工具 [puppeteer-recorder](https://github.com/checkly/puppeteer-recorder) 一键录制复杂的脚本，无需手动 copy selector 定位和写大量重复的 click 语句，脚本运行的时候，会遍历 puppeteerScripts 文件夹下所有的执行脚本，并记录过程中的上报埋点，并将这一系列的流程保存到单独的 sheet 里面，方便定位到具体某个业务流程的埋点。这样无惧复杂的业务流程，且但项目迭代时，你只需要重新录制一遍相关改动的业务流程即可，其他的脚本就可以作为埋点的回归测试。
-
 ## 项目原理（我觉得还是看图吧！）
 
 [项目原理图高清链接](https://www.processon.com/view/link/5dd38659e4b01da3459348c7)
@@ -38,3 +32,9 @@ Buried-Point-Pro 换了另外一种方式来执行埋点的脚本，可以通过
 -   注释掉 test.js 中的 " // demo 演示代码... "下的代码，启用 " // 实际业务代码... "下的代码
 
 -   node test.js
+
+## 为什么要做埋点 Pro
+
+maidianDemoTest 在投入使用的过程中发现，只能对静态页面的埋点进行检测，动态页面需要根据业务逻辑手动去写代码并提 excel 来设计，非常的麻烦，尤其是当业务流程很复杂又很多的时候，一样显得非常麻烦。在这样的一种前提下，重写了整个项目，由此而来的就是 Buried-Point-Pro. 
+
+Buried-Point-Pro 换了另外一种方式来执行埋点的脚本，可以通过第三方工具 [puppeteer-recorder](https://github.com/checkly/puppeteer-recorder) 一键录制复杂的脚本，无需手动 copy selector 定位和写大量重复的 click 语句，脚本运行的时候，会遍历 puppeteerScripts 文件夹下所有的执行脚本，并记录过程中的上报埋点，并将这一系列的流程保存到单独的 sheet 里面，方便定位到具体某个业务流程的埋点。这样无惧复杂的业务流程，且但项目迭代时，你只需要重新录制一遍相关改动的业务流程即可，其他的脚本就可以作为埋点的回归测试。
