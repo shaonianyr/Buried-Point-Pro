@@ -54,7 +54,11 @@ const resultPath = './result.xlsx';
                             
                             loggerSuc.info('\n埋点事件信息记录：\n', obj.event, obj.properties.$url, '\n预期上报名字：', name, '\n实际上报名字：', obj.properties.$element_name);
                             var list = [];
-                            list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '-', '1');
+                            if (name === obj.properties.$element_name) {
+                                list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '-', '1');
+                            } else {
+                                list.push(key.toString(), obj.properties.$url, obj.event, name, obj.properties.$element_name, '-', '0');
+                            }
                             arr[sheetNum].data.push(list);
                             key++;
                         })();
