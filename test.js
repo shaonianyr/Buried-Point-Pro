@@ -21,7 +21,7 @@ const resultPath = './result.xlsx';
     for (var i = 0; i < filesList.length; i++) {
 
         // debug 使用
-        const browser = await puppeteer.launch({ headless: false});
+        const browser = await puppeteer.launch({ headless: false });
 
         // 实际业务使用
         // const browser = await puppeteer.launch();
@@ -35,7 +35,7 @@ const resultPath = './result.xlsx';
             if (typeof msg === 'object') {
 
                 // debug 使用
-                // console.log(msg);
+                console.log(msg);
 
                 try {
                     var obj = JSON.parse(msg._text);
