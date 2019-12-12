@@ -4,4 +4,4 @@ steps:
   - name: sonar-scanner
     image: mercuriete/sonar-scanner:4.2.0.1873
     commands: 
-      - sonar-scanner -Dsonar.host.url=http://111.230.120.184 -Dsonar.login=39800f87119cb03318150a013cb3ef979213c822 -Dsonar.projectKey=drone_demo -Dsonar.sources=.
+      - sonar-scanner -Dsonar.sources=. -Dsonar.host.url=http://111.230.120.184 -Dsonar.login=39800f87119cb03318150a013cb3ef979213c822 -Dsonar.projectKey=drone_demo
