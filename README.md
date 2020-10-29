@@ -1,5 +1,6 @@
 # 最新
 
+
 该项目功能已被集成到 [ShaoNianyr/Scripts_Web_UI_Autotest](https://github.com/ShaoNianyr/Scripts_Web_UI_Autotest)，并进行优化，且集成了 breakpoint & mock 的功能。
 
 Buried-Point-Pro 埋点测试工具的不足:
@@ -11,6 +12,8 @@ Buried-Point-Pro 埋点测试工具的不足:
 3. 没有模拟触发测试异常场景的功能。（如请求失败，请求中断等记录异常错误的埋点）
 
 基于以上的一些优化，也就有了这个新的工具，更多详情见 [ShaoNianyr/Scripts_Web_UI_Autotest](https://github.com/ShaoNianyr/Scripts_Web_UI_Autotest) 。
+
+技术交流 QQ 群：552643038
 
 
 
