@@ -43,7 +43,8 @@ Buried-Point-Pro，基于 nodejs 和 puppeteer 开发的埋点自动化测试框
     // 首先要准备好 nodejs && npm 环境
     git clone https://github.com/ShaoNianyr/Buried-Point-Pro.git
     cd Buried-Point-Pro
-    npm install // 最好用 cnpm 
+    npm config set puppeteer_download_host=https://npm.taobao.org/mirrors
+    npm install --registry=https://registry.npm.taobao.org
     node test.js 
 ```
 
